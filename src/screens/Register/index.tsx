@@ -8,26 +8,30 @@ import {
   Error,
 } from "./styles";
 import { Button } from "../../components/Forms/Button";
-import {
-  TransactionTypeButton,
-  TransactionTypes,
-} from "../../components/Forms/TransactionTypeButton";
+import { TransactionTypeButton } from "../../components/Forms/TransactionTypeButton";
 import { useState } from "react";
 import { CategorySelect } from "../../components/Forms/CategorySelect";
-import { Modal, ViewProps, TouchableWithoutFeedback, Keyboard } from "react-native";
+import {
+  Modal,
+  ViewProps,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Alert,
+} from "react-native";
 import { Categories, CategoryType } from "../Categories";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { categories } from "../../constants/categories";
 import * as z from "zod";
 import { InputForm } from "../../components/Forms/InputForm/index";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface RegisterProps extends ViewProps {}
 
 const transactionSchema = z.object({
   name: z.string().min(3, "O nome deve ter pelo menos 3 caracteres"),
-  price: z.preprocess((price) => {
-    return Number(z.string().parse(price));
+  amount: z.preprocess((amount) => {
+    return Number(z.string().parse(amount));
   }, z.number().min(1, "O valor deve ser maior ou igual a 1")),
   type: z.enum(["income", "outcome"]),
   category: z
@@ -86,8 +90,23 @@ export function Register({ ...rest }: RegisterProps) {
     setCategoriesModalIsOpen(true);
   }
 
-  function handleRegister(data: TransactionOutput) {
+  async function handleRegister(data: TransactionOutput) {
     console.log(data);
+
+    const transaction = {
+      name: data.name,
+      amount: data.amount,
+      type: data.type,
+      category: data.category.key,
+    };
+
+    try {
+      const dataKey = "@gofinnance:transactions";
+      AsyncStorage.setItem(dataKey, JSON.stringify(transaction));
+    } catch (error) {
+      console.log(error);
+      Alert.alert("Não foi possível salvar");
+    }
   }
 
   return (
@@ -116,11 +135,11 @@ export function Register({ ...rest }: RegisterProps) {
             )}
             <InputForm
               keyboardType="numeric"
-              name="price"
+              name="amount"
               placeholder="Preço"
               control={control}
             />
-            {errors.price && <Error>{errors.price?.message}</Error>}
+            {errors.amount && <Error>{errors.amount?.message}</Error>}
             <TransactionTypesField>
               <Controller
                 name="type"
@@ -166,7 +185,7 @@ export function Register({ ...rest }: RegisterProps) {
           </Fields>
           <Button
             onPress={() => {
-              handleSubmit(handleRegister);
+              handleSubmit(handleRegister)();
             }}
           >
             Enviar
