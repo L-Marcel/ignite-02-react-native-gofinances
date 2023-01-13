@@ -1,4 +1,7 @@
 import React, { useEffect } from "react";
+import "intl";
+import "intl/locale-data/jsonp/pt-BR";
+
 import { ThemeProvider } from "styled-components/native";
 import theme from "./src/global/styles/theme";
 import {

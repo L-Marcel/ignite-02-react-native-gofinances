@@ -115,3 +115,9 @@ export const TransactionsList = styled.FlatList.attrs({
 })<FlatListProps<TransactionCardProps>>``;
 
 export const LogoutButton = styled(BorderlessButton)``;
+
+export const LoadContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;

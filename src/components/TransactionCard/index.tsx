@@ -19,16 +19,18 @@ export type TransactionsType = "positive" | "negative";
 export interface TransactionCardProps {
   id: string;
   title: string;
-  amount: string;
+  amount: number;
+  formattedAmount: string;
   type: TransactionsType;
   category: Category;
   date: string;
+  formattedDate: string;
 }
 
 export function TransactionCard({
-  amount,
   category,
-  date,
+  formattedAmount,
+  formattedDate,
   type,
   title,
 }: TransactionCardProps) {
@@ -37,14 +39,14 @@ export function TransactionCard({
       <Title>{title}</Title>
       <Amount type={type}>
         {type === "negative" && "- "}
-        {amount}
+        {formattedAmount}
       </Amount>
       <Footer>
         <Category>
           <CategoryIcon name={category.icon} />
           <CategoryName>{category.name}</CategoryName>
         </Category>
-        <TransactionDate>{date}</TransactionDate>
+        <TransactionDate>{formattedDate}</TransactionDate>
       </Footer>
     </Container>
   );

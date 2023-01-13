@@ -4,6 +4,7 @@ import { Register } from "../screens/Register/index";
 import { useTheme } from "styled-components/native";
 import { Platform } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import { Resume } from "../screens/Resume/index";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -51,7 +52,7 @@ export function AppRoutes() {
           },
         }}
         name="Resume"
-        component={Register}
+        component={Resume}
       />
     </Navigator>
   );
