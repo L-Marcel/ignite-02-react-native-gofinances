@@ -1,60 +1,72 @@
-import styled from 'styled-components/native';
-import { Feather } from '@expo/vector-icons';
-import { RFValue } from 'react-native-responsive-fontsize';
-import { TransactionsType } from './index';
+import styled from "styled-components/native";
+import { Feather } from "@expo/vector-icons";
+import { RFValue } from "react-native-responsive-fontsize";
+import { TransactionsType } from "./";
 
 interface TransactionType {
   type: TransactionsType;
-};
+}
 
 export const Container = styled.View`
-  backgroundColor: ${({ theme }) => theme.colors.shape};
-  borderRadius: 5px;
+  background-color: ${({ theme }) => {
+    return theme.colors.shape;
+  }};
+  border-radius: 5px;
   padding: 17px 24px;
-  marginBottom: 16px;
+  margin-bottom: 16px;
 `;
 
 export const Title = styled.Text`
-  fontSize: ${RFValue(14)}px;
-  fontFamily: ${({ theme }) => theme.fonts.regular};
+  font-size: ${RFValue(14)}px;
+  font-family: ${({ theme }) => {
+    return theme.fonts.regular;
+  }};
 `;
 
 export const Amount = styled.Text<TransactionType>`
-  fontFamily: ${({ theme }) => theme.fonts.regular};  
-  fontSize: ${RFValue(20)}px;
-  color: ${({ theme, type }) => 
-    type === "positive"? theme.colors.success:theme.colors.attention
-  };
+  font-family: ${({ theme }) => {
+    return theme.fonts.regular;
+  }};
+  font-size: ${RFValue(20)}px;
+  color: ${({ theme, type }) => {
+    return type === "positive" ? theme.colors.success : theme.colors.attention;
+  }};
 
-  marginTop: 2px;
+  margin-top: 2px;
 `;
 
 export const Footer = styled.View`
-  flexDirection: row;
-  justifyContent: space-between;
-  alignItems: center;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 
-  marginTop: 19px;
+  margin-top: 19px;
 `;
 
 export const Category = styled.View`
-  flexDirection: row;
-  alignItems: center;
+  flex-direction: row;
+  align-items: center;
 `;
 
 export const CategoryName = styled.Text`
-  color: ${({ theme }) => theme.colors.text};
-  fontSize: ${RFValue(14)}px;
-  marginLeft: ${RFValue(8)}px;
-  textTransform: capitalize;
+  color: ${({ theme }) => {
+    return theme.colors.text;
+  }};
+  font-size: ${RFValue(14)}px;
+  margin-left: ${RFValue(8)}px;
+  text-transform: capitalize;
 `;
 
 export const CategoryIcon = styled(Feather)`
-  fontSize: ${RFValue(20)}px;
-  color: ${({ theme }) => theme.colors.text};
+  font-size: ${RFValue(20)}px;
+  color: ${({ theme }) => {
+    return theme.colors.text;
+  }};
 `;
 
 export const TransactionDate = styled.Text`
-  fontSize: ${RFValue(14)}px;
-  color: ${({ theme }) => theme.colors.text};
+  font-size: ${RFValue(14)}px;
+  color: ${({ theme }) => {
+    return theme.colors.text;
+  }};
 `;

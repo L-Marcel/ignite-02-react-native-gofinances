@@ -1,4 +1,13 @@
-import { Container, Title, Amount, Footer, Category, CategoryIcon, CategoryName, TransactionDate } from './styles';
+import {
+  Container,
+  Title,
+  Amount,
+  Footer,
+  Category,
+  CategoryIcon,
+  CategoryName,
+  TransactionDate,
+} from "./styles";
 
 type Category = {
   name: string;
@@ -21,28 +30,21 @@ export function TransactionCard({
   category,
   date,
   type,
-  title
+  title,
 }: TransactionCardProps) {
   return (
     <Container>
-      <Title>
-        {title}
-      </Title>
+      <Title>{title}</Title>
       <Amount type={type}>
-        {type === "negative" && "- "}{amount}
+        {type === "negative" && "- "}
+        {amount}
       </Amount>
       <Footer>
         <Category>
-          <CategoryIcon 
-            name={category.icon}
-          />
-          <CategoryName>
-            {category.name}
-          </CategoryName>
+          <CategoryIcon name={category.icon} />
+          <CategoryName>{category.name}</CategoryName>
         </Category>
-        <TransactionDate>
-          {date}
-        </TransactionDate>
+        <TransactionDate>{date}</TransactionDate>
       </Footer>
     </Container>
   );
