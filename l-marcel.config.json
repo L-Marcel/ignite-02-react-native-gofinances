@@ -1,5 +1,8 @@
 {
   "translatedDescription": "Um aplicativo de gerenciamento de finanças que gera um relatório e salva os dados no armazenamento local.",
+  "links": {
+    "figma": "https://www.figma.com/file/TUDvqGOeMZZGh4HuoQf4t1/GoFinances-Ignite-(Copy)?node-id=0%3A1&t=xMYR8KwXjqRxEszC-1"
+  },
   "technologies": [
     "React Native",
     "Date FNS",

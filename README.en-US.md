@@ -6,6 +6,10 @@
     <a class="navigation-link disabled" href="https://github.com/L-Marcel/ignite-02-react-native-gofinances/blob/main/README.md" target="__blank__">
       pt-br
     </a>
+    <span class="disabled">•</span>
+    <a class="navigation-link" href="https://www.figma.com/file/TUDvqGOeMZZGh4HuoQf4t1/GoFinances-Ignite-(Copy)?node-id=0%3A1&t=xMYR8KwXjqRxEszC-1" target="__blank__">
+      figma
+    </a>
   </nav>
 </div>
 
