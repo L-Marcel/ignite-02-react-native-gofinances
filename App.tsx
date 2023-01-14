@@ -11,12 +11,15 @@ import {
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
 import * as SplashScreen from "expo-splash-screen";
-import { AppRoutes } from "./src/routes/app.routes";
 import { NavigationContainer } from "@react-navigation/native";
+import { AuthProvider } from "./src/context/provider/AuthProvider";
+import { Routes } from "./src/routes/index";
+import { useAuth } from "./src/context/hooks/useAuth";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+  const { userStorageLoading } = useAuth();
   const [fontsWereLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_500Medium,
@@ -25,22 +28,24 @@ export default function App() {
 
   useEffect(() => {
     async function handleOnLoad() {
-      if (fontsWereLoaded) {
+      if (fontsWereLoaded && !userStorageLoading) {
         await SplashScreen.hideAsync();
       }
     }
 
     handleOnLoad();
-  }, [fontsWereLoaded]);
+  }, [fontsWereLoaded, userStorageLoading]);
 
-  if (!fontsWereLoaded) {
+  if (!fontsWereLoaded || userStorageLoading) {
     return null;
   }
 
   return (
     <ThemeProvider theme={theme}>
       <NavigationContainer>
-        <AppRoutes />
+        <AuthProvider>
+          <Routes />
+        </AuthProvider>
       </NavigationContainer>
     </ThemeProvider>
   );

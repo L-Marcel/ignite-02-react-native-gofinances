@@ -1,10 +1,10 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Dashboard } from "../screens/Dashboard/index";
-import { Register } from "../screens/Register/index";
+import { Dashboard } from "../screens/Dashboard";
+import { Register } from "../screens/Register";
 import { useTheme } from "styled-components/native";
 import { Platform } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import { Resume } from "../screens/Resume/index";
+import { Resume } from "../screens/Resume";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 

@@ -22,6 +22,7 @@ import { RFValue } from "react-native-responsive-fontsize";
 import { addMonths } from "date-fns/esm";
 import { format, subMonths } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
+import { useAuth } from "../../context/hooks/useAuth";
 
 type RequestDataType = {
   amount: number;
@@ -45,6 +46,7 @@ interface ResumeProps {}
 export function Resume({}: ResumeProps) {
   const theme = useTheme();
 
+  const { user } = useAuth();
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<DataType[]>([]);
@@ -60,7 +62,7 @@ export function Resume({}: ResumeProps) {
   }
 
   async function loadData() {
-    const dataKey = "@gofinnance:transactions";
+    const dataKey = `@gofinnance:transactions_user:${user.id}`;
     //await AsyncStorage.removeItem(dataKey);
     const data = await AsyncStorage.getItem(dataKey);
     const currentData: RequestDataType[] =

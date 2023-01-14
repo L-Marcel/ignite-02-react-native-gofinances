@@ -27,6 +27,7 @@ import { InputForm } from "../../components/Forms/InputForm/index";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import uuid from "react-native-uuid";
 import { useNavigation } from "@react-navigation/native";
+import { useAuth } from "../../context/hooks/useAuth";
 
 interface RegisterProps extends ViewProps {}
 
@@ -63,6 +64,8 @@ type TransactionInput = z.input<typeof transactionSchema>;
 
 export function Register({ ...rest }: RegisterProps) {
   const navigation = useNavigation();
+
+  const { user } = useAuth();
   const [categoriesModalIsOpen, setCategoriesModalIsOpen] = useState(false);
 
   const {
@@ -95,7 +98,7 @@ export function Register({ ...rest }: RegisterProps) {
   }
 
   async function handleRegister(data: TransactionOutput) {
-    const dataKey = "@gofinnance:transactions";
+    const dataKey = `@gofinnance:transactions_user:${user.id}`;
 
     const transaction = {
       id: String(uuid.v4()),

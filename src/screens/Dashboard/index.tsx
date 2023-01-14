@@ -23,6 +23,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import { ActivityIndicator } from "react-native";
 import { useTheme } from "styled-components/native";
 import { LoadContainer } from "./styles";
+import { useAuth } from "../../context/hooks/useAuth";
 
 //Achei que estava meio bagunçado a tipagem, tentei melhorar mas acho que piorei.
 //Vou deixar assim...
@@ -39,6 +40,8 @@ interface DashboardProps {}
 
 export function Dashboard({}: DashboardProps) {
   const theme = useTheme();
+
+  const { signOut, user } = useAuth();
 
   const [isLoading, setIsLoading] = useState(true);
   const [transactions, setTransactions] = useState<TransactionCardProps[]>([]);
@@ -131,7 +134,7 @@ export function Dashboard({}: DashboardProps) {
   const isTheSameMonth = formattedLastTransaction.includes(formattedFirstTransaction);
 
   async function loadTransaction() {
-    const dataKey = "@gofinnance:transactions";
+    const dataKey = `@gofinnance:transactions_user:${user.id}`;
     //await AsyncStorage.removeItem(dataKey);
     const data = await AsyncStorage.getItem(dataKey);
     const currentData =
@@ -174,6 +177,10 @@ export function Dashboard({}: DashboardProps) {
     setIsLoading(false);
   }
 
+  async function handleSingOut() {
+    await signOut();
+  }
+
   useFocusEffect(
     useCallback(() => {
       setIsLoading(true);
@@ -194,19 +201,15 @@ export function Dashboard({}: DashboardProps) {
               <UserInfo>
                 <Photo
                   source={{
-                    uri: "https://avatars.githubusercontent.com/l-marcel",
+                    uri: user.photo,
                   }}
                 />
                 <User>
                   <UserGreeting>Olá,</UserGreeting>
-                  <UserName>Marcel</UserName>
+                  <UserName>{user.name}</UserName>
                 </User>
               </UserInfo>
-              <LogoutButton
-                onPress={() => {
-                  return console.log("abc");
-                }}
-              >
+              <LogoutButton onPress={handleSingOut}>
                 <Icon name="power" />
               </LogoutButton>
             </UserWrapper>
