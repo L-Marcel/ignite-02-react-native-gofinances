@@ -15,6 +15,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { AuthProvider } from "./src/context/provider/AuthProvider";
 import { Routes } from "./src/routes/index";
 import { useAuth } from "./src/context/hooks/useAuth";
+import * as ScreenOrientation from "expo-screen-orientation";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -28,6 +29,7 @@ export default function App() {
 
   useEffect(() => {
     async function handleOnLoad() {
+      await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
       if (fontsWereLoaded && !userStorageLoading) {
         await SplashScreen.hideAsync();
       }

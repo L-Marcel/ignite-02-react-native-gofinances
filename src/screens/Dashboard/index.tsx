@@ -111,6 +111,9 @@ export function Dashboard({}: DashboardProps) {
     currency: "BRL",
   });
 
+  const dateOfLastTransaction = new Date(lastTransaction);
+  const dateOfFirstTransaction = new Date(firstTransaction);
+
   const formattedLastIncome = Intl.DateTimeFormat("pt-BR", {
     day: "2-digit",
     month: "long",
@@ -121,17 +124,22 @@ export function Dashboard({}: DashboardProps) {
     month: "long",
   }).format(new Date(lastOutcome));
 
+  const isTheSameMonth =
+    dateOfLastTransaction.getMonth() === dateOfFirstTransaction.getMonth();
+  const isTheSameYear =
+    dateOfLastTransaction.getFullYear() === dateOfFirstTransaction.getFullYear();
+
   const formattedLastTransaction = Intl.DateTimeFormat("pt-BR", {
     day: "2-digit",
-    month: "long",
-  }).format(new Date(lastTransaction));
+    month: !isTheSameYear ? "2-digit" : "long",
+    year: !isTheSameYear ? "numeric" : undefined,
+  }).format(dateOfLastTransaction);
 
   const formattedFirstTransaction = Intl.DateTimeFormat("pt-BR", {
-    month: "long",
-  }).format(new Date(firstTransaction));
-
-  //Sim, deixei passar o bug do ano seguinte kkkkkkk
-  const isTheSameMonth = formattedLastTransaction.includes(formattedFirstTransaction);
+    day: "2-digit",
+    month: !isTheSameYear ? "2-digit" : "long",
+    year: !isTheSameYear ? "numeric" : undefined,
+  }).format(dateOfFirstTransaction);
 
   async function loadTransaction() {
     const dataKey = `@gofinnance:transactions_user:${user.id}`;
@@ -242,7 +250,7 @@ export function Dashboard({}: DashboardProps) {
               lastTransaction={
                 haveAny
                   ? `De ${
-                      isTheSameMonth ? "01" : formattedFirstTransaction
+                      isTheSameMonth && isTheSameYear ? "01" : formattedFirstTransaction
                     } à ${formattedLastTransaction}`
                   : "Sem qualquer registro"
               }

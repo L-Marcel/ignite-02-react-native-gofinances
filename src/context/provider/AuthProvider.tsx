@@ -49,10 +49,19 @@ export function AuthProvider({ children }: AuthProviderProps) {
         );
 
         const userInfo = await data.json();
+
+        let _name = String(userInfo.name);
+
+        if (/ /g.test(_name)) {
+          const [_firstName, _secondName] = _name.split(" ");
+          _name = _firstName + " " + _secondName;
+        }
+
+        const name = _name;
         const _user = {
           email: userInfo.email,
           id: userInfo.id,
-          name: userInfo.name,
+          name,
           photo: userInfo.picture,
         };
 
@@ -75,12 +84,18 @@ export function AuthProvider({ children }: AuthProviderProps) {
       });
 
       if (credentials) {
-        const _name = credentials.fullName!.givenName!;
+        let _name = credentials.fullName!.givenName!;
 
+        if (/ /g.test(_name)) {
+          const [_firstName, _secondName] = _name.split(" ");
+          _name = _firstName + " " + _secondName;
+        }
+
+        const name = _name;
         const _user = {
           email: credentials.email!,
           id: String(credentials.user),
-          name: _name,
+          name,
           photo: `https://ui-avatars.com/api/?name=${_name}&length=2`,
         };
 

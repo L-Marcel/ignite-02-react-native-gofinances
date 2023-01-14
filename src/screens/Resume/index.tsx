@@ -48,7 +48,6 @@ export function Resume({}: ResumeProps) {
 
   const { user } = useAuth();
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<DataType[]>([]);
 
   function handleDateChange(action: "next" | "previus") {
@@ -67,8 +66,6 @@ export function Resume({}: ResumeProps) {
     const data = await AsyncStorage.getItem(dataKey);
     const currentData: RequestDataType[] =
       data !== null && Array.isArray(JSON.parse(data)) ? JSON.parse(data) : [];
-
-    setIsLoading(false);
 
     const expensives = currentData.filter((expensive) => {
       const date = new Date(expensive.date);
@@ -115,10 +112,20 @@ export function Resume({}: ResumeProps) {
 
   useFocusEffect(
     useCallback(() => {
-      setIsLoading(true);
       loadData();
     }, [selectedDate])
   );
+
+  const haveData = data.length >= 1;
+  const fakeData: DataType[] = [
+    {
+      color: "#242424",
+      formattedTotal: "",
+      name: "...",
+      percent: "Sem gastos...",
+      total: 1,
+    },
+  ];
 
   return (
     <Container>
@@ -126,70 +133,83 @@ export function Resume({}: ResumeProps) {
         <Title>Resumo dos gastos</Title>
       </Header>
 
-      {isLoading ? (
-        <LoadContainer>
-          <ActivityIndicator color={theme.colors.secondary} size={60} />
-        </LoadContainer>
-      ) : (
-        <Content
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{
-            padding: 24,
-          }}
-        >
-          <MonthSelect>
-            <MonthSelectButton
-              onPress={() => {
-                return handleDateChange("previus");
-              }}
-            >
-              <MonthSelectIcon name="chevron-left" />
-            </MonthSelectButton>
+      <Content
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{
+          padding: 24,
+        }}
+      >
+        <MonthSelect>
+          <MonthSelectButton
+            onPress={() => {
+              return handleDateChange("previus");
+            }}
+          >
+            <MonthSelectIcon name="chevron-left" />
+          </MonthSelectButton>
 
-            <Month>
-              {format(selectedDate, "MMMM, yyyy", {
-                locale: ptBR,
-              })}
-            </Month>
+          <Month>
+            {format(selectedDate, "MMMM, yyyy", {
+              locale: ptBR,
+            })}
+          </Month>
 
-            <MonthSelectButton
-              onPress={() => {
-                return handleDateChange("next");
-              }}
-            >
-              <MonthSelectIcon name="chevron-right" />
-            </MonthSelectButton>
-          </MonthSelect>
-          <ChartContainer>
-            <VictoryPie
-              colorScale={data.map((category) => {
-                return category.color;
-              })}
-              style={{
-                labels: {
-                  fontSize: RFValue(18),
-                  fontWeight: "bold",
-                  fill: theme.colors.shape,
-                },
-              }}
-              labelRadius={70}
-              data={data}
-              x="percent"
-              y="total"
+          <MonthSelectButton
+            onPress={() => {
+              return handleDateChange("next");
+            }}
+          >
+            <MonthSelectIcon name="chevron-right" />
+          </MonthSelectButton>
+        </MonthSelect>
+        <ChartContainer>
+          <VictoryPie
+            colorScale={
+              haveData
+                ? data.map((category) => {
+                    return category.color;
+                  })
+                : fakeData.map((category) => {
+                    return category.color;
+                  })
+            }
+            style={{
+              labels: {
+                fontSize: RFValue(18),
+                fontWeight: "bold",
+
+                fill: haveData ? theme.colors.shape : theme.colors.textDark,
+              },
+            }}
+            animate={true}
+            labels={
+              //Tinha um bug na animação, não retornava o atributo percent em si
+              //Mas sim um número quebrado que sobrescrevia o label anterior
+              haveData
+                ? data.map((data) => {
+                    return data.percent;
+                  })
+                : fakeData.map((fakeData) => {
+                    return fakeData.percent;
+                  })
+            }
+            labelRadius={haveData ? 70 : 0}
+            data={haveData ? data : fakeData}
+            x="percent"
+            y="total"
+          />
+        </ChartContainer>
+        {data.map((category) => {
+          return (
+            <HistoryCard
+              key={category.name}
+              amount={category.formattedTotal}
+              color={category.color}
+              title={category.name}
             />
-          </ChartContainer>
-          {data.map((category) => {
-            return (
-              <HistoryCard
-                key={category.name}
-                amount={category.formattedTotal}
-                color={category.color}
-                title={category.name}
-              />
-            );
-          })}
-        </Content>
-      )}
+          );
+        })}
+      </Content>
     </Container>
   );
 }

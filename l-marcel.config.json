@@ -1,0 +1,10 @@
+{
+  "translatedDescription": "Um aplicativo de gerenciamento de finanças que gera um relatório e salva os dados no armazenamento local.",
+  "technologies": [
+    "React Native",
+    "Date FNS",
+    "React Hook Form",
+    "Expo",
+    "Eslint"
+  ]
+}

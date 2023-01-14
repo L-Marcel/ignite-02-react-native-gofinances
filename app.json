@@ -5,6 +5,17 @@
     "name": "gofinances",
     "slug": "gofinances",
     "scheme": "gofinances",
+    "ios": {
+      "requireFullScreen": true
+    },
+    "plugins": [
+      [
+        "expo-screen-orientation",
+        {
+          "initialOrientation": "PORTRAIT"
+        }
+      ]
+    ],
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"

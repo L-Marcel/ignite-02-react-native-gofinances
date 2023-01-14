@@ -51,7 +51,7 @@ export function AppRoutes() {
             return <MaterialIcons size={size} name="pie-chart" color={color} />;
           },
         }}
-        name="Resume"
+        name="Gastos"
         component={Resume}
       />
     </Navigator>
