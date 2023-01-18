@@ -4,7 +4,7 @@
   "expo": {
     "name": "gofinances",
     "slug": "gofinances",
-    "icon": "./public/logo.png",
+    "icon": "./public/icon.png",
     "scheme": "gofinances",
     "splash": {
       "image": "./public/splash.png",
@@ -15,7 +15,11 @@
       "buildNumber": "1.0.0"
     },
     "android": {
-      "package": "com.gofinances"
+      "package": "com.gofinances",
+      "adaptiveIcon": {
+        "foregroundImage": "./public/adaptive-icon.png",
+        "backgroundColor": "#5636D3"
+      },
     },
     "plugins": [
       [
