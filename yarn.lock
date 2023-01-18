@@ -1636,7 +1636,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/config-plugins@npm:5.0.4, @expo/config-plugins@npm:~5.0.3":
+"@expo/config-plugins@npm:5.0.4, @expo/config-plugins@npm:^5.0.2, @expo/config-plugins@npm:~5.0.3":
   version: 5.0.4
   resolution: "@expo/config-plugins@npm:5.0.4"
   dependencies:
@@ -6961,6 +6961,7 @@ __metadata:
   dependencies:
     "@babel/core": ^7.12.9
     "@expo-google-fonts/poppins": ^0.2.2
+    "@expo/config-plugins": ^5.0.2
     "@hookform/resolvers": ^2.9.10
     "@lmarcel/eslint-config": ^2.0.0
     "@react-native-async-storage/async-storage": ~1.17.3

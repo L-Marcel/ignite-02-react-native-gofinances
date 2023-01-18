@@ -57,5 +57,5 @@ dist/
 
 .yarn
 .env
-.android
-.ios
+android
+ios
