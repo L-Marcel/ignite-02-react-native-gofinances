@@ -10,6 +10,10 @@
     <a class="navigation-link" href="https://www.figma.com/file/TUDvqGOeMZZGh4HuoQf4t1/GoFinances-Ignite-(Copy)?node-id=0%3A1&t=xMYR8KwXjqRxEszC-1" target="__blank__">
       figma
     </a>
+    <span>•</span>
+    <a class="navigation-link" href="https://expo.dev/artifacts/eas/uD7RtiuHc9r9xvPS9gYmgx.apk" target="__blank__">
+      apk
+    </a>
   </nav>
 </div>
 
