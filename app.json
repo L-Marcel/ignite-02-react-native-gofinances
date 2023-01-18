@@ -6,6 +6,10 @@
     "slug": "gofinances",
     "icon": "./public/logo.png",
     "scheme": "gofinances",
+    "splash": {
+      "image": "./public/splash.png",
+      "backgroundColor": "#5636D3"
+    },
     "ios": {
       "requireFullScreen": true,
       "buildNumber": "1.0.0"
