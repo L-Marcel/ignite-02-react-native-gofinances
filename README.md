@@ -11,7 +11,7 @@
       figma
     </a>
     <span>•</span>
-    <a class="navigation-link" href="https://expo.dev/artifacts/eas/uD7RtiuHc9r9xvPS9gYmgx.apk" target="__blank__">
+    <a class="navigation-link" href="https://expo.dev/artifacts/eas/eSiXTjwbeDkw86awFECvLR.apk" target="__blank__">
       apk
     </a>
   </nav>
