@@ -4,9 +4,14 @@
   "expo": {
     "name": "gofinances",
     "slug": "gofinances",
+    "icon": "./public/logo.png",
     "scheme": "gofinances",
     "ios": {
-      "requireFullScreen": true
+      "requireFullScreen": true,
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "com.gofinances"
     },
     "plugins": [
       [
@@ -24,6 +29,11 @@
       "barStyle": "light-content",
       "translucent": true,
       "backgroundColor": "#00000000"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "8933a62c-ff97-4df8-8e82-4bb2b3eeb56b"
+      }
     }
   }
 }
